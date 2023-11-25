@@ -16,7 +16,7 @@ void compiler_factor() {
   } else {
     char code[1024];
     char n = compiler_get_num();
-    sprintf(code, "MOVE #%c,D0", n);
+    sprintf(code, "{move,{integer,%c},{x,0}}.", n);
     compiler_emit_ln(code);
   }
 }
@@ -24,14 +24,13 @@ void compiler_factor() {
 void compiler_multiply() {
   match('*');
   compiler_factor();
-  compiler_emit_ln("MULS (SP)+,D0");
+  compiler_emit_ln("{gc_bif,'*',{f,0},3,[{x,2}, {x,0}],{x,0}}.");
 }
 
 void compiler_divide() {
   match('/');
   compiler_factor();
-  compiler_emit_ln("MOVE (SP)+,D1");
-  compiler_emit_ln("DIVS D1,D0");
+  compiler_emit_ln("{gc_bif,'/',{f,0},3,[{x,2}, {x,0}],{x,0}}.");
 }
 
 int is_mulop() {
@@ -48,7 +47,7 @@ int is_mulop() {
 void compiler_term() {
   compiler_factor();
   while (is_mulop()) {
-    compiler_emit_ln("MOVE D0, -(SP)");
+    compiler_emit_ln("{move,{x,0},{x,2}}.");
     switch (look) {
     case '*':
       compiler_multiply();
@@ -66,13 +65,13 @@ void compiler_term() {
 void compiler_add() {
   match('+');
   compiler_term();
-  compiler_emit_ln("ADD (SP)+,D0");
+  compiler_emit_ln("{gc_bif,'+',{f,0},2,[{x,0}, {x,1}],{x,0}}.");
 }
 
 void compiler_subtract() {
   match('-');
   compiler_term();
-  compiler_emit_ln("SUB (SP)+,D0");
+  compiler_emit_ln("{gc_bif,'-',{f,0},2,[{x,0}, {x,1}],{x,0}}.");
 }
 
 int is_addop() {
@@ -88,13 +87,13 @@ int is_addop() {
 
 void compiler_expression() {
   if (is_addop()) {
-      compiler_emit_ln("CLR D0");
+      compiler_emit_ln("{move,{integer,0},{x,0}}.");
   } else {
     compiler_term();
   }
 
   while (is_addop()) {
-    compiler_emit_ln("MOVE D0,-(SP)");
+    compiler_emit_ln("{move,{x,0},{x,1}}.");
     switch (look) {
     case '+':
       compiler_add();

@@ -91,10 +91,10 @@ char compiler_get_num() {
 }
 
 void compiler_emit(char* s) {
-  size_t s_len = strlen(s) + 2; // TAB + \0
+  size_t s_len = strlen(s) + 5; // TAB + \0
   char out[s_len];
 
-  snprintf(out, s_len, "%c%s", TAB, s);
+  snprintf(out, s_len, "    %s", s);
 
   compiler_output(stdout, out);
 }
