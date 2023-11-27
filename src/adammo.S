@@ -11,19 +11,7 @@
   {label,1}.
     {func_info,{atom,primer},{atom,test_generation},0}.
   {label,2}.
-    {move,{integer,3},{x,0}}.
-    {move,{x,0},{x,1}}.
-    {move,{integer,4},{x,0}}.
-    {move,{x,0},{x,2}}.
-    {move,{integer,5},{x,0}}.
-    {gc_bif,'*',{f,0},3,[{x,2}, {x,0}],{x,0}}.
-    {move,{x,0},{x,2}}.
-    {move,{integer,3},{x,0}}.
-    {gc_bif,'*',{f,0},3,[{x,2}, {x,0}],{x,0}}.
-    {gc_bif,'+',{f,0},2,[{x,0}, {x,1}],{x,0}}.
-    {move,{x,0},{x,1}}.
-    {move,{integer,2},{x,0}}.
-    {gc_bif,'+',{f,0},2,[{x,0}, {x,1}],{x,0}}.
+    ##INSTRUCTIONSHERE##
     return.
 
 {function, module_info, 0, 4}.

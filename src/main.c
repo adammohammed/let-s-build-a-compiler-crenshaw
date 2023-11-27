@@ -71,7 +71,7 @@ void compiler_add() {
 void compiler_subtract() {
   match('-');
   compiler_term();
-  compiler_emit_ln("{gc_bif,'-',{f,0},2,[{x,0}, {x,1}],{x,0}}.");
+  compiler_emit_ln("{gc_bif,'-',{f,0},2,[{x,1}, {x,0}],{x,0}}.");
 }
 
 int is_addop() {
