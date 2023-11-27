@@ -9,7 +9,7 @@ In Jack's version, he's compiling for the 68000 series CPUs, I've
 changed this to produce instructions for the BEAM virtual machine that
 powers Erlang and Elixir.
 
-Check out the [src/README.md] for more info.
+Check out the [src/README.md](./src/README.md) for more info.
 
 
 [compiler]: https://compilers.iecc.com/crenshaw/
